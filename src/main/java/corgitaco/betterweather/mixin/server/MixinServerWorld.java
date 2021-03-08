@@ -60,6 +60,4 @@ public abstract class MixinServerWorld {
     private int neverSpawnLightning(Random random, int bound) {
         return -1;
     }
-
-
 }

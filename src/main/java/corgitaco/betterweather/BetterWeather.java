@@ -15,6 +15,7 @@ import corgitaco.betterweather.server.BetterWeatherGameRules;
 import corgitaco.betterweather.server.ConfigReloadCommand;
 import corgitaco.betterweather.server.SetSeasonCommand;
 import corgitaco.betterweather.server.SetWeatherCommand;
+import corgitaco.betterweather.util.ChunkGeneratorWrapper;
 import corgitaco.betterweather.weatherevent.WeatherEventSystem;
 import corgitaco.betterweather.weatherevent.weatherevents.vanilla.Clear;
 import net.minecraft.client.Minecraft;
@@ -22,10 +23,12 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
@@ -50,6 +53,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.Collections;
+import java.util.IdentityHashMap;
 import java.util.List;
 
 @Mod("betterweather")
@@ -62,6 +66,8 @@ public class BetterWeather {
     public static boolean useSeasons = true;
     public static boolean usingOptifine;
     public static Registry<Biome> biomeRegistryEarlyAccess;
+
+    public static IdentityHashMap<RegistryKey<World>, ChunkGenerator> worldToChunkGenerator;
 
     public BetterWeather() {
         File dir = new File(CONFIG_PATH.toString());
